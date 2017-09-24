@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html ng-app="anagramApp">
+<head>
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+ </head>
+<body ng-controller="firstCtrl as c1">
+  <div class="container" style="position: relative; top:10%">
+    <div class="row" >
+      <div class="col-md-4">
+<input type="text" ng-keyup="c1.generateAnagrams()" ng-model="c1.inputText" placeholder="please enter a word!"/>
+</div>
+<div class="col-md-4">
+  <button type="button" class="btn btn-primary" ng-click="c1.reRollFunc()">Re-Roll!</button>
+</div>
+</div>
+<div class="row" style="margin-top:2%">
+  <div class="col-md-6">
+    <table class="table">
+  	<tr>
+  		<th>Anagrams
+  		</th>
+  	</tr>
+  	<tr ng-repeat="anagrams in c1.anagrams | filter:query | limitTo:c1.quantity track by $index ">
+      <td>
+        <input type="checkbox"  ng-click="c1.stopMutation(anagrams)" value={{anagrams}}/>
+      </td>
+  		<td>{{anagrams}}
+  		</td>
+  	</tr>
+  </table>
+  </div>
+</div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular.min.js"></script>
+<script src="app.js" type="text/javascript"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</body>
+</html>
