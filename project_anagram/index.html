@@ -1,40 +1,56 @@
 <!DOCTYPE html>
+<!-- To declare a Angular app -->
 <html ng-app="anagramApp">
 <head>
-   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
- </head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<!-- To define a controller -->
+
 <body ng-controller="firstCtrl as c1">
-  <div class="container" style="position: relative; top:10%">
-    <div class="row" >
+  <div class="container" style="position: absolute; top:10%; left:15%">
+    <div class="row">
       <div class="col-md-4">
-<input type="text" ng-keyup="c1.generateAnagrams()" ng-model="c1.inputText" placeholder="please enter a word!"/>
-</div>
-<div class="col-md-4">
-  <button type="button" class="btn btn-primary" ng-click="c1.reRollFunc()">Re-Roll!</button>
-</div>
-</div>
-<div class="row" style="margin-top:2%">
-  <div class="col-md-6">
-    <table class="table">
-  	<tr>
-  		<th>Anagrams
-  		</th>
-  	</tr>
-  	<tr ng-repeat="anagrams in c1.anagrams | filter:query | limitTo:c1.quantity track by $index ">
-      <td>
-        <input type="checkbox"  ng-click="c1.stopMutation(anagrams)" value={{anagrams}}/>
-      </td>
-  		<td>{{anagrams}}
-  		</td>
-  	</tr>
-  </table>
+        <!-- input box to keep track of every key press -->
+        <input type="text" ng-keyup="c1.generateAnagrams()" ng-model="c1.inputText" placeholder="please enter a word!" />
+      </div>
+      <div class="col-md-4">
+        <!-- button to re roll the anagrams -->
+        <button type="button" class="btn btn-primary" ng-click="c1.reRollFunc()">Re-Roll!</button>
+      </div>
+      <div class="col-md-4">
+        <!-- button to generate viable anagrams -->
+        <button type="button" class="btn btn-primary" ng-click="c1.viableAnagrams()">Get Meaningful Anagrams!</button>
+      </div>
+    </div>
+    <div class="row" style="margin-top:2%">
+      <div class="col-md-6">
+        <table class="table">
+          <tr>
+            <th>select to freeze</th>
+            <th>
+              <!-- button to sort the anagrams -->
+              <button ng-click="c1.sortBy('name')">Name</button>
+            </th>
+          </tr>
+          <!-- repeat directive to list the anagrams -->
+          <tr ng-repeat="anagrams in c1.anagrams | filter:query | limitTo:c1.quantity | orderBy:c1.propertyName:c1.reverse track by $index" ng-init="idx = $index+1">
+            <td>
+              <!-- checkboxes to freeze the data during re-roll -->
+              <input type="checkbox" ng-click="c1.stopMutation($index)" value={{anagrams}}/>
+            </td>
+            <!-- data binding of the anagrams -->
+            <td>{{anagrams}}
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
   </div>
-</div>
-</div>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular.min.js"></script>
-<script src="app.js" type="text/javascript"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular.min.js"></script>
+  <script src="app.js" type="text/javascript"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 </body>
+
 </html>
